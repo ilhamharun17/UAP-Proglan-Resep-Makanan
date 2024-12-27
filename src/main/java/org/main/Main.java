@@ -30,7 +30,7 @@ public class Main {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Recipe Table
-        String[] columnNames = {"Recipe Name"};
+        String[] columnNames = {"Nama Resep"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -42,19 +42,19 @@ public class Main {
         JScrollPane tableScroll = new JScrollPane(recipeTable);
 
         // Add Recipe Button
-        JButton addButton = new JButton("Add Recipe");
+        JButton addButton = new JButton("Tambah Resep");
         addButton.addActionListener(e -> openAddRecipeDialog());
 
         // View Recipe Button
-        JButton viewButton = new JButton("View Recipe");
+        JButton viewButton = new JButton("Lihat Resep");
         viewButton.addActionListener(e -> viewSelectedRecipe());
 
         // Edit Recipe Button
-        JButton editButton = new JButton("Edit Recipe");
+        JButton editButton = new JButton("Edit Resep");
         editButton.addActionListener(e -> editSelectedRecipe());
 
         // Delete Recipe Button
-        JButton deleteButton = new JButton("Delete Recipe");
+        JButton deleteButton = new JButton("Hapus Resep");
         deleteButton.addActionListener(e -> deleteSelectedRecipe());
 
         // Button Panel
@@ -83,7 +83,7 @@ public class Main {
     }
 
     private void openAddRecipeDialog() {
-        JDialog dialog = new JDialog(frame, "Add Recipe", true);
+        JDialog dialog = new JDialog(frame, "Tambah Resep", true);
         dialog.setSize(400, 400);
         dialog.setLayout(new GridLayout(6, 2));
 
@@ -91,8 +91,8 @@ public class Main {
         JTextField nameField = new JTextField();
         JTextArea ingredientsArea = new JTextArea();
         JTextArea stepsArea = new JTextArea();
-        JButton chooseImageButton = new JButton("Choose Image");
-        JLabel imagePathLabel = new JLabel("No image selected");
+        JButton chooseImageButton = new JButton("Pilih Gambar");
+        JLabel imagePathLabel = new JLabel("Tidak ada gambar");
 
         chooseImageButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
@@ -103,7 +103,7 @@ public class Main {
             }
         });
 
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton("Simpan");
         saveButton.addActionListener(e -> {
             String name = nameField.getText();
             String ingredients = ingredientsArea.getText();
@@ -115,15 +115,15 @@ public class Main {
                 updateTable();
                 dialog.dispose();
             } else {
-                JOptionPane.showMessageDialog(dialog, "Recipe name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog, "Nama resep tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        dialog.add(new JLabel("Recipe Name:"));
+        dialog.add(new JLabel("Nama Resep:"));
         dialog.add(nameField);
-        dialog.add(new JLabel("Ingredients:"));
+        dialog.add(new JLabel("Bahan:"));
         dialog.add(new JScrollPane(ingredientsArea));
-        dialog.add(new JLabel("Steps:"));
+        dialog.add(new JLabel("Langkah-langkah:"));
         dialog.add(new JScrollPane(stepsArea));
         dialog.add(chooseImageButton);
         dialog.add(imagePathLabel);
@@ -142,7 +142,7 @@ public class Main {
 
             JTextArea recipeDetails = new JTextArea();
             recipeDetails.setEditable(false);
-            recipeDetails.setText("Ingredients:\n" + recipe.getIngredients() + "\n\nSteps:\n" + recipe.getSteps());
+            recipeDetails.setText("Bahan:\n" + recipe.getIngredients() + "\n\nLangkah-langkah:\n" + recipe.getSteps());
 
             JLabel imageLabel = new JLabel();
             if (recipe.getImagePath() != null && !recipe.getImagePath().isEmpty()) {
@@ -155,7 +155,7 @@ public class Main {
 
             dialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(frame, "Please select a recipe to view.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Pilih resep untuk dilihat.", "No Selection", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -164,7 +164,7 @@ public class Main {
         if (selectedRow >= 0) {
             Recipe recipe = recipes.get(selectedRow);
 
-            JDialog dialog = new JDialog(frame, "Edit Recipe", true);
+            JDialog dialog = new JDialog(frame, "Edit Resep", true);
             dialog.setSize(400, 400);
             dialog.setLayout(new GridLayout(6, 2));
 
@@ -172,8 +172,8 @@ public class Main {
             JTextField nameField = new JTextField(recipe.getName());
             JTextArea ingredientsArea = new JTextArea(recipe.getIngredients());
             JTextArea stepsArea = new JTextArea(recipe.getSteps());
-            JButton chooseImageButton = new JButton("Choose Image");
-            JLabel imagePathLabel = new JLabel(recipe.getImagePath() == null ? "No image selected" : recipe.getImagePath());
+            JButton chooseImageButton = new JButton("Pilih Gambar");
+            JLabel imagePathLabel = new JLabel(recipe.getImagePath() == null ? "Tidak ada gambar" : recipe.getImagePath());
 
             chooseImageButton.addActionListener(e -> {
                 JFileChooser fileChooser = new JFileChooser();
@@ -184,7 +184,7 @@ public class Main {
                 }
             });
 
-            JButton saveButton = new JButton("Save Changes");
+            JButton saveButton = new JButton("Simpan Perubahan");
             saveButton.addActionListener(e -> {
                 String name = nameField.getText();
                 String ingredients = ingredientsArea.getText();
@@ -199,15 +199,15 @@ public class Main {
                     updateTable();
                     dialog.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(dialog, "Recipe name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Nama resep tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });
 
-            dialog.add(new JLabel("Recipe Name:"));
+            dialog.add(new JLabel("Nama Resep:"));
             dialog.add(nameField);
-            dialog.add(new JLabel("Ingredients:"));
+            dialog.add(new JLabel("Bahan:"));
             dialog.add(new JScrollPane(ingredientsArea));
-            dialog.add(new JLabel("Steps:"));
+            dialog.add(new JLabel("Langkah-langkah:"));
             dialog.add(new JScrollPane(stepsArea));
             dialog.add(chooseImageButton);
             dialog.add(imagePathLabel);
@@ -215,7 +215,7 @@ public class Main {
 
             dialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(frame, "Please select a recipe to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Pilih resep untuk diedit.", "No Selection", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -225,7 +225,7 @@ public class Main {
             recipes.remove(selectedRow);
             updateTable();
         } else {
-            JOptionPane.showMessageDialog(frame, "Please select a recipe to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Pilih resep untuk dihapus.", "No Selection", JOptionPane.WARNING_MESSAGE);
         }
     }
 
