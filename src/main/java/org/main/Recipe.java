@@ -2,7 +2,7 @@ package org.main;
 
 import java.io.Serializable;
 
-class Recipe implements Serializable {
+public class Recipe implements Serializable {
     private String name;
     private String ingredients;
     private String steps;

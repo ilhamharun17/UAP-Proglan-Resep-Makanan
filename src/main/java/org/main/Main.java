@@ -12,7 +12,7 @@ public class Main {
     private JFrame frame;
     private JTable recipeTable;
     private DefaultTableModel tableModel;
-    private ArrayList<Recipe> recipes;
+    public ArrayList<Recipe> recipes;
     private final String DATA_FILE = "recipes.dat";
 
     public Main() {
@@ -41,30 +41,24 @@ public class Main {
         recipeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane tableScroll = new JScrollPane(recipeTable);
 
-        // Add Recipe Button
         JButton addButton = new JButton("Tambah Resep");
         addButton.addActionListener(e -> openAddRecipeDialog());
 
-        // View Recipe Button
         JButton viewButton = new JButton("Lihat Resep");
         viewButton.addActionListener(e -> viewSelectedRecipe());
 
-        // Edit Recipe Button
         JButton editButton = new JButton("Edit Resep");
         editButton.addActionListener(e -> editSelectedRecipe());
 
-        // Delete Recipe Button
         JButton deleteButton = new JButton("Hapus Resep");
         deleteButton.addActionListener(e -> deleteSelectedRecipe());
 
-        // Button Panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addButton);
         buttonPanel.add(viewButton);
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);
 
-        // Add Components to Main Panel
         mainPanel.add(tableScroll, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -87,7 +81,6 @@ public class Main {
         dialog.setSize(400, 400);
         dialog.setLayout(new GridLayout(6, 2));
 
-        // Form Fields
         JTextField nameField = new JTextField();
         JTextArea ingredientsArea = new JTextArea();
         JTextArea stepsArea = new JTextArea();
@@ -168,7 +161,6 @@ public class Main {
             dialog.setSize(400, 400);
             dialog.setLayout(new GridLayout(6, 2));
 
-            // Form Fields
             JTextField nameField = new JTextField(recipe.getName());
             JTextArea ingredientsArea = new JTextArea(recipe.getIngredients());
             JTextArea stepsArea = new JTextArea(recipe.getSteps());
@@ -236,7 +228,7 @@ public class Main {
         }
     }
 
-    private void saveRecipes() {
+    public void saveRecipes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
             oos.writeObject(recipes);
         } catch (IOException e) {
@@ -244,7 +236,7 @@ public class Main {
         }
     }
 
-    private void loadRecipes() {
+    public void loadRecipes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
             recipes = (ArrayList<Recipe>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
